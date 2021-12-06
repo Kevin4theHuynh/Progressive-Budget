@@ -44,11 +44,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="index.js"></script>
   <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("./serviceworker.js",{scope: "/"})
-      .then(() => console.log("Service worker works"))
-      .catch(error => console.log("Service worker did not work", error))
-    }
+        (function () {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("./serviceworker.js", { scope: "/" })
+          .then(() => console.log("Service Worker registered successfully."))
+          .catch(error => console.log("Service Worker registration failed:", error));
+      }
+    })();
   </script>
 </body>
 </html>
