@@ -12,15 +12,14 @@ const cacheFiles = [
 ]
 
 // Installer event
-// Uses cache API because web storage will not work
 self.addEventListener('install', (e) => {
-    console.log('[Service Worker] Install');
-    e.waitUntil((async () => {
-        const cache = await caches.open(cacheName);
-        await cache.addAll(cacheContent)
-    }))
-  });
-
+    e.waitUntil(
+      caches
+      .open(cacheName)
+      .then((cache) => cache.addAll(cacheFiles))
+      .then(self.skipWaiting())
+    )
+})
 
 const budgetImages = [];
     for (let i = 0; i < budget.length; i++) {
