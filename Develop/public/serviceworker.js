@@ -3,7 +3,7 @@ console.log("This is service worker")
 
 const cacheName = 'js13kPWA-v1';
 // varible for storing all the files 
-const  cacheFiles = [
+const cacheFiles = [
     '/index.html',
     '/index.js',
     '/styles.css',
@@ -12,9 +12,13 @@ const  cacheFiles = [
 ]
 
 // Installer event
+// Uses cache API because web storage will not work
 self.addEventListener('install', (e) => {
     console.log('[Service Worker] Install');
-    
+    e.waitUntil((async () => {
+        const cache = await caches.open(cacheName);
+        await cache.addAll(cacheContent)
+    }))
   });
 
 
@@ -23,3 +27,4 @@ const budgetImages = [];
   budgetImages.push(`data/img/${budget[i].slug}.jpg`);
 }
 const cacheContent = cacheFiles.concat(budgetImages);
+
