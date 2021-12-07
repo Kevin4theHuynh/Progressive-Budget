@@ -7,6 +7,7 @@ const FILES_TO_CACHE = [
     '/index.html',
     '/index.js',
     '/styles.css',
+    './db.js',
     './icons/icon-192x192.png',
     './icons/icon-512x512.png',
     'https://cdn.jsdelivr.net/npm/chart.js@2.8.0'
@@ -57,9 +58,9 @@ self.addEventListener('fetch', (event) => {
 }
 
 event.respondWith(
-  caches.match(event.request).then(cachedResponse => {
-    if (cachedResponse) {
-      return cachedResponse
+  caches.match(event.request).then(respondCache => {
+    if (respondCache) {
+      return respondCache
     }
     return fetch(event.request).then(response => {
       return cache.put(event.request, response.clone()).then(() => {
