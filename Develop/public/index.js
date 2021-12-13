@@ -1,7 +1,7 @@
 let transactions = [];
 let myChart;
 
-fetch("/api/transaction")
+fetch("http://localhost:3001/api/transaction")
   .then(response => {
     return response.json();
   })
@@ -111,9 +111,9 @@ function sendTransaction(isAdding) {
   populateChart();
   populateTable();
   populateTotal();
-  
+
   // also send to server
-  fetch("/api/transaction", {
+  fetch("http://localhost:3001/api/transaction", {
     method: "POST",
     body: JSON.stringify(transaction),
     headers: {
@@ -121,7 +121,7 @@ function sendTransaction(isAdding) {
       "Content-Type": "application/json"
     }
   })
-  .then(response => {    
+  .then(response => {
     return response.json();
   })
   .then(data => {
